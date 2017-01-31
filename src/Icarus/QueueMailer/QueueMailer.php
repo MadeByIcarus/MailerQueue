@@ -73,8 +73,8 @@ class QueueMailer
         /** @var EmailTemplate $emailTemplate */
         $emailTemplate = $repository->findOneBy(['name' => $templateName, 'language' => $language]);
 
-        $parameters['_control'] = $this->linkGenerator;
         $latte = $this->latteFactory->create();
+        $latte->addProvider("uiControl", $this->linkGenerator);
         UIMacros::install($latte->getCompiler());
         $latte->setLoader(new StringLoader());
 
