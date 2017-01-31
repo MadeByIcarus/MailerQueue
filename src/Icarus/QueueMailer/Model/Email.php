@@ -56,6 +56,11 @@ class Email
      */
     private $error;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $errorTime;
+
 
 
     /**
@@ -64,7 +69,7 @@ class Email
     public function setSentToNow()
     {
         $this->sent = new \DateTime();
-        $this->error = null;
+        $this->clearError();
         return $this;
     }
 
@@ -175,6 +180,26 @@ class Email
     public function setError($error)
     {
         $this->error = $error;
+        return $this;
+    }
+
+
+
+    public function clearError()
+    {
+        $this->error = null;
+        $this->errorTime = null;
+    }
+
+
+
+    /**
+     * @param mixed $errorTime
+     * @return $this
+     */
+    public function setErrorTime($errorTime)
+    {
+        $this->errorTime = $errorTime;
         return $this;
     }
 
