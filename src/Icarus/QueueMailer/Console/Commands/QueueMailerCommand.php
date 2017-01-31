@@ -2,25 +2,25 @@
 
 namespace Icarus\QueueMailer\Console\Commands;
 
-use DateTime;
+
 use Icarus\QueueMailer\Model\Email;
 use Icarus\QueueMailer\Model\EmailQuery;
-use Joseki\LeanMapper\Query;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\EntityRepository;
-use Linqpays\Mail\EmailRepository;
-use Nette\Mail\SmtpMailer;
+use Nette\Mail\IMailer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tracy\Debugger;
 
+
 class QueueMailerCommand extends Command
 {
+
     /** @var EntityRepository */
     private $repository;
 
-    /** @var SmtpMailer */
+    /** @var IMailer */
     private $mailer;
 
 
@@ -28,9 +28,9 @@ class QueueMailerCommand extends Command
     /**
      * MailerCommand constructor.
      * @param EntityManager $entityManager
-     * @param SmtpMailer $mailer
+     * @param IMailer $mailer
      */
-    public function __construct(EntityManager $entityManager, SmtpMailer $mailer)
+    public function __construct(EntityManager $entityManager, IMailer $mailer)
     {
         parent::__construct();
         $this->repository = $entityManager->getRepository(Email::class);
