@@ -19,7 +19,7 @@ class EmailQuery extends QueryObject
     public function notSent()
     {
         $this->filter[] = function (QueryBuilder $qb) {
-            $qb->andWhere(self::ALIAS."sent IS NULL");
+            $qb->andWhere(self::ALIAS.".sent IS NULL");
         };
         return $this;
     }
