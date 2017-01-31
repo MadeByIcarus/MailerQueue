@@ -20,11 +20,10 @@
     }
   ],
   "autoload": {
-    "psr-0": {
-      "Icarus\\QueueMailer\\": "src/"
-    }
+    "classmap": ["src"]
   },
   "autoload-dev": {
+    "classmap": ["src"]
   },
   "require": {
     "php": ">=5.6",
