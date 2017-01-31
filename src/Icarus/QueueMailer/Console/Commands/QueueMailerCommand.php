@@ -66,11 +66,12 @@ class QueueMailerCommand extends Command
             try {
                 $this->mailer->send($message);
                 $email->setSentToNow();
-                $this->entityManager->persist($email);
             } catch (\Exception $e) {
+                $email->setError($e->getMessage());
                 Debugger::log($e, Debugger::ERROR);
                 $output->writeln('An error occurred during sending an email');
             }
+            $this->entityManager->persist($email);
         }
         $this->entityManager->flush();
     }

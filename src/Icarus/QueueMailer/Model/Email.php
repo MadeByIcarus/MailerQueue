@@ -51,6 +51,11 @@ class Email
      */
     private $body;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $error;
+
 
 
     /**
@@ -59,6 +64,7 @@ class Email
     public function setSentToNow()
     {
         $this->sent = new \DateTime();
+        $this->error = null;
         return $this;
     }
 
@@ -157,6 +163,18 @@ class Email
     public function setBody($body)
     {
         $this->body = $body;
+        return $this;
+    }
+
+
+
+    /**
+     * @param mixed $error
+     * @return Email
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
         return $this;
     }
 
