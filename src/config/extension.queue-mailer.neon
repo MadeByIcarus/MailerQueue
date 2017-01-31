@@ -1,0 +1,5 @@
+extensions:
+    queueMailer: Icarus\QueueMailer\DI\QueueMailerExtension
+
+queueMailer:
+    defaultSender: no-reply@your-domain.com # mandatory field
