@@ -180,6 +180,7 @@ class Email
     public function setError($error)
     {
         $this->error = $error;
+        $this->errorTime = new \DateTime();
         return $this;
     }
 
@@ -189,18 +190,6 @@ class Email
     {
         $this->error = null;
         $this->errorTime = null;
-    }
-
-
-
-    /**
-     * @param mixed $errorTime
-     * @return $this
-     */
-    public function setErrorTime($errorTime)
-    {
-        $this->errorTime = $errorTime;
-        return $this;
     }
 
 }
