@@ -23,6 +23,11 @@ class QueueMailerCommand extends Command
     /** @var IMailer */
     private $mailer;
 
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
 
 
     /**
@@ -33,6 +38,7 @@ class QueueMailerCommand extends Command
     public function __construct(EntityManager $entityManager, IMailer $mailer)
     {
         parent::__construct();
+        $this->entityManager = $entityManager;
         $this->repository = $entityManager->getRepository(Email::class);
         $this->mailer = $mailer;
     }
@@ -60,11 +66,12 @@ class QueueMailerCommand extends Command
             try {
                 $this->mailer->send($message);
                 $email->setSentToNow();
-                $this->repository->getEntityManager()->persist($email);
+                $this->entityManager->persist($email);
             } catch (\Exception $e) {
                 Debugger::log($e, Debugger::ERROR);
                 $output->writeln('An error occurred during sending an email');
             }
         }
+        $this->entityManager->flush();
     }
 }
