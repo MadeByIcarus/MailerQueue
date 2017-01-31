@@ -14,12 +14,12 @@ class EmailQuery extends QueryObject
 
     use TQueryObjectFilter;
 
-
+    const ALIAS = "email";
 
     public function notSent()
     {
         $this->filter[] = function (QueryBuilder $qb) {
-            $qb->andWhere("sent IS NULL");
+            $qb->andWhere(self::ALIAS."sent IS NULL");
         };
         return $this;
     }
@@ -33,8 +33,8 @@ class EmailQuery extends QueryObject
     protected function doCreateQuery(Kdyby\Persistence\Queryable $repository)
     {
         $qb = $repository->createQueryBuilder()
-            ->select("email")
-            ->from(Email::class, "email");
+            ->select(self::ALIAS)
+            ->from(Email::class, self::ALIAS);
 
         return $this->applyFilter($qb);
     }
