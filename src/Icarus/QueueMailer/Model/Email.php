@@ -4,7 +4,7 @@ namespace Icarus\QueueMailer\Model;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Icarus\Doctrine\Entities\Attributes\BigIdentifier;
 use Nette\Mail\Message;
 
 
@@ -14,7 +14,7 @@ use Nette\Mail\Message;
 class Email
 {
 
-    use Identifier;
+    use BigIdentifier;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
