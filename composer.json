@@ -28,12 +28,9 @@
     "kdyby/doctrine": "^3.1",
     "nette/mail": "^2.4",
     "tracy/tracy": "^2.4",
-    "icarus/kdyby-doctrine-traits": "dev-master",
+    "icarus/kdyby-doctrine-traits": "^0.1",
     "latte/latte": "^2.4",
     "nette/utils": "^2.4",
     "nette/application": "^2.4"
-  },
-  "require-dev": {
-  },
-  "minimum-stability": "dev"
+  }
 }
