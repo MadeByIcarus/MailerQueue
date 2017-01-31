@@ -29,7 +29,7 @@ class Email
     /**
      * @ORM\Column(type="string")
      */
-    private $to;
+    private $recipient;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -72,7 +72,7 @@ class Email
         $message = new Message();
 
         $message->setFrom($this->sender);
-        $message->addTo($this->to);
+        $message->addTo($this->recipient);
 
         if ($this->cc) {
             $message->addCc($this->cc);
@@ -103,12 +103,12 @@ class Email
 
 
     /**
-     * @param mixed $to
+     * @param mixed $recipient
      * @return Email
      */
-    public function setTo($to)
+    public function setTo($recipient)
     {
-        $this->to = $to;
+        $this->recipient = $recipient;
         return $this;
     }
 
