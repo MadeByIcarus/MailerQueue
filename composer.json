@@ -20,10 +20,8 @@
     }
   ],
   "autoload": {
-    "classmap": ["src"]
-  },
-  "autoload-dev": {
-    "classmap": ["src"]
+    "classmap": ["src"],
+    "exclude-from-classmap": ["**/Model**"]
   },
   "require": {
     "php": ">=5.6",
