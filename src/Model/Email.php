@@ -24,7 +24,7 @@ class Email
     /**
      * @ORM\Column(type="string")
      */
-    private $from;
+    private $sender;
 
     /**
      * @ORM\Column(type="string")
@@ -71,7 +71,7 @@ class Email
     {
         $message = new Message();
 
-        $message->setFrom($this->from);
+        $message->setFrom($this->sender);
         $message->addTo($this->to);
 
         if ($this->cc) {
@@ -91,12 +91,12 @@ class Email
 
 
     /**
-     * @param mixed $from
+     * @param mixed $sender
      * @return Email
      */
-    public function setFrom($from)
+    public function setSender($sender)
     {
-        $this->from = $from;
+        $this->sender = $sender;
         return $this;
     }
 

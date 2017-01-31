@@ -23,6 +23,7 @@ class QueueMailer
      */
     private $entityManager;
 
+    /** @var string Default sender */
     private $sender;
 
     /**
@@ -95,7 +96,7 @@ class QueueMailer
         }
 
         $email = new Email();
-        $email->setFrom($from ?: $this->sender);
+        $email->setSender($from ?: $this->sender);
         $email->setTo($to);
         $email->setSubject($subject);
         $email->setBody($body);
