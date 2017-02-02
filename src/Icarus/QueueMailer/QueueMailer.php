@@ -4,6 +4,7 @@ namespace Icarus\QueueMailer;
 
 
 use Doctrine\ORM\EntityManager;
+use Icarus\QueueMailer\Exceptions\EmailTemplateNotFoundException;
 use Icarus\QueueMailer\Model\Email;
 use Icarus\QueueMailer\Model\EmailTemplate;
 use Latte\Loaders\StringLoader;
@@ -82,6 +83,10 @@ class QueueMailer
         /** @var EmailTemplate $emailTemplate */
         $emailTemplate = $repository->findOneBy(['name' => $templateName, 'language' => $language]);
 
+        if (!$emailTemplate) {
+            throw new EmailTemplateNotFoundException("Template $templateName:$language not found in the database.");
+        }
+
         $latte = $this->latteFactory->create();
         $latte->addProvider("uiControl", $this->linkGenerator);
         UIMacros::install($latte->getCompiler());
@@ -93,7 +98,7 @@ class QueueMailer
     }
 
 
-
+    
     public function prepareEmail($to, $subject, $body, $from = null)
     {
         if (!Validators::isEmail($to)) {
