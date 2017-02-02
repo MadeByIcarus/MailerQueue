@@ -10,7 +10,7 @@ namespace Icarus\QueueMailer\Model;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Icarus\Doctrine\Entities\Attributes\Identifier;
 
 
 /**
