@@ -23,8 +23,17 @@ class QueueMailer
      */
     private $entityManager;
 
-    /** @var string Default sender */
+    /**
+     * @var string
+     * Default sender
+     */
     private $sender;
+
+    /**
+     * @var string
+     * Default language
+     */
+    private $defaultLanguage;
 
     /**
      * @var ITranslator
@@ -43,9 +52,10 @@ class QueueMailer
 
 
 
-    function __construct($defaultSender, EntityManager $entityManager, ITranslator $translator, ILatteFactory $latteFactory, LinkGenerator $linkGenerator)
+    function __construct($defaultSender, $defaultLanguage, EntityManager $entityManager, ITranslator $translator, ILatteFactory $latteFactory, LinkGenerator $linkGenerator)
     {
         $this->sender = $defaultSender;
+        $this->defaultLanguage = $defaultLanguage;
         $this->entityManager = $entityManager;
         $this->translator = $translator;
         $this->latteFactory = $latteFactory;
@@ -64,8 +74,7 @@ class QueueMailer
     public function prepareEmailFromTemplate($templateName, $to, array $parameters, $language = null)
     {
         if (!$language) {
-            $language = "en";
-            // TODO
+            $language = $this->defaultLanguage;
         }
 
         $repository = $this->entityManager->getRepository(EmailTemplate::class);

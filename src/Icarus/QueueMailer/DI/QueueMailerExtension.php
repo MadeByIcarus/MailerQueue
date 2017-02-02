@@ -18,10 +18,14 @@ use Nette\Utils\Validators;
 
 class QueueMailerExtension extends CompilerExtension implements IEntityProvider
 {
+    private $defaults = [
+        'defaultLanguage' => 'en',
+        'defaultSender' => ''
+    ];
 
     public function loadConfiguration()
     {
-        $config = $this->getConfig();
+        $config = $this->getConfig($this->defaults);
         Validators::assertField($config, 'defaultSender', 'string');
 
         if (!Validators::isEmail($config['defaultSender'])) {
@@ -29,7 +33,7 @@ class QueueMailerExtension extends CompilerExtension implements IEntityProvider
         }
 
         $this->getContainerBuilder()->addDefinition($this->prefix("QueueMailer"))
-            ->setClass(QueueMailer::class, [$config['defaultSender']]);
+            ->setClass(QueueMailer::class, [$config['defaultSender'], $config['defaultLanguage']]);
     }
 
     /**
