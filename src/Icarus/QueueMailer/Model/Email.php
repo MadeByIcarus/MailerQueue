@@ -17,6 +17,11 @@ class Email
     use BigIdentifier;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $sent;
@@ -60,6 +65,13 @@ class Email
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $errorTime;
+
+
+
+    function __construct()
+    {
+        $this->created = new \DateTime();
+    }
 
 
 
