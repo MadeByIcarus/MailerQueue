@@ -61,7 +61,6 @@ class QueueMailerCommand extends Command
 
         foreach ($emails->getIterator() as $email) {
             /** @var Email $email */
-
             $message = $email->getMessage();
             try {
                 $this->mailer->send($message);
@@ -69,7 +68,7 @@ class QueueMailerCommand extends Command
             } catch (\Exception $e) {
                 $email->setError($e->getMessage());
                 Debugger::log($e, Debugger::ERROR);
-                $output->writeln('An error occurred during sending an email');
+                $output->writeln('An error occurred during sending email ID ' . $email->getId() . ': ' . $e->getMessage());
             }
             $this->entityManager->persist($email);
         }
