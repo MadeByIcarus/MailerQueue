@@ -94,18 +94,18 @@ class Email
 
 
     /**
-     * @param unsigned integer $minutes
+     * @param unsigned integer $seconds
      */
-    public function setDelay($minutes)
+    public function setDelay($seconds)
     {
-        if ($minutes <= 0 || !is_int($minutes)) {
+        if ($seconds <= 0 || !is_int($seconds)) {
             throw new InvalidArgumentException(
-                "Expected unsigned integer. Got '$minutes'" .
-                !is_int($minutes) ? (" which is " . gettype($minutes)) : "."
+                "Expected unsigned integer. Got '$seconds'" .
+                !is_int($seconds) ? (" which is " . gettype($seconds)) : "."
             );
         }
         $this->doNotSendBefore = clone $this->created;
-        $this->doNotSendBefore->modify("+$minutes minutes");
+        $this->doNotSendBefore->modify("+$seconds seconds");
     }
 
 
