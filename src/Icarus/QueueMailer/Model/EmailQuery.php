@@ -16,10 +16,13 @@ class EmailQuery extends QueryObject
 
     const ALIAS = "email";
 
+
+
     public function notSent()
     {
         $this->filter[] = function (QueryBuilder $qb) {
-            $qb->andWhere(self::ALIAS.".sent IS NULL");
+            $qb->andWhere(self::ALIAS . ".sent IS NULL");
+            $qb->andWhere(self::ALIAS . ".doNotSendBefore IS NULL OR " . self::ALIAS . ".doNotSendBefore <= CURRENT_TIMESTAMP()");
         };
         return $this;
     }

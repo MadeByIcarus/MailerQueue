@@ -5,6 +5,7 @@ namespace Icarus\QueueMailer\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Icarus\Doctrine\Entities\Attributes\BigIdentifier;
+use Nette\InvalidArgumentException;
 use Nette\Mail\Message;
 
 
@@ -20,6 +21,11 @@ class Email
      * @ORM\Column(type="datetime")
      */
     private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $doNotSendBefore;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -83,6 +89,23 @@ class Email
         $this->sent = new \DateTime();
         $this->clearError();
         return $this;
+    }
+
+
+
+    /**
+     * @param unsigned integer $minutes
+     */
+    public function setDelay($minutes)
+    {
+        if ($minutes <= 0 || !is_int($minutes)) {
+            throw new InvalidArgumentException(
+                "Expected unsigned integer. Got '$minutes'" .
+                !is_int($minutes) ? (" which is " . gettype($minutes)) : "."
+            );
+        }
+        $this->doNotSendBefore = clone $this->created;
+        $this->doNotSendBefore->modify("+$minutes minutes");
     }
 
 
