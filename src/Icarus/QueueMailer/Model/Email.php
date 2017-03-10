@@ -73,7 +73,7 @@ class Email
     private $errorTime;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $attachments;
 
