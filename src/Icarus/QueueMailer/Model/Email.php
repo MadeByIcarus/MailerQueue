@@ -72,6 +72,11 @@ class Email
      */
     private $errorTime;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $attachments;
+
 
 
     function __construct()
@@ -130,6 +135,13 @@ class Email
 
         $message->setSubject($this->subject);
         $message->setHtmlBody($this->body);
+
+        if ($this->attachments) {
+            $attachments = explode(";", $this->attachments);
+            foreach ($attachments as $a) {
+                $message->addAttachment($a);
+            }
+        }
 
         return $message;
     }
@@ -204,6 +216,19 @@ class Email
     {
         $this->body = $body;
         return $this;
+    }
+
+
+
+    public function addAttachmentPath($path)
+    {
+        if ($this->attachments) {
+            $attachments = explode(";", $this->attachments);
+        } else {
+            $attachments = [];
+        }
+        $attachments[] = $path;
+        $this->attachments = implode(";", $attachments);
     }
 
 
